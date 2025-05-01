@@ -1,3 +1,4 @@
+using System;
 using _Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 1;
     [SerializeField] private float currHealth;
     [SerializeField] private Image healthbarImg;
+    [SerializeField] private GameObject gameOver;
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        Time.timeScale = 1;
+    }
 
     private void Start()
     {
@@ -24,7 +33,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (currHealth <= 0)
         {
-            Die();
+            // Die();
+            anim.SetTrigger("Death");
         }
     }
 
@@ -38,5 +48,16 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died.");
+        Time.timeScale = 0;
+        gameOver.SetActive(true);
     }
 }
+
+
+
+
+
+
+
+
+
